@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.example.android.instagramclient"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    //Sends network request for JSON
+    compile 'com.loopj.android:android-async-http:1.4.8'
+    //Loads remote images from the network into image view
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    //Support library to be able to use SwipeToRefresh
+    compile 'com.android.support:support-v4:22.2.1'
+    //Support to use RecycleView ****NOT USED****
+    compile 'com.android.support:recyclerview-v7:+'
+    compile 'com.android.support:cardview-v7:21.0.+'
+    //Support to use roundedImages
+    compile 'com.makeramen:roundedimageview:2.1.2'
+
+}
