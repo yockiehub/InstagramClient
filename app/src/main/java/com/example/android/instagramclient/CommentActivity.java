@@ -1,6 +1,7 @@
 package com.example.android.instagramclient;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,13 +22,26 @@ import java.util.ArrayList;
 public class CommentActivity extends ActionBarActivity {
     private InstagramCommentAdapter aComments;
     private ArrayList<InstagramComment> comments;
-
-
-
+    private SwipeRefreshLayout commentsSwipe;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
+
+        commentsSwipe = (SwipeRefreshLayout) findViewById(R.id.commentsSwipe);
+        //Setup refresh listener which triggers new data loading
+        commentsSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            public void onRefresh() {
+
+                fetchComments();
+                commentsSwipe.setRefreshing(false);
+            }
+        });
+        //Configure the refreshing colors
+        commentsSwipe.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         fetchComments();
 
@@ -44,14 +58,14 @@ public class CommentActivity extends ActionBarActivity {
         AsyncHttpClient client = new AsyncHttpClient();
 
         String url = "https://api.instagram.com/v1/media/" + getIntent().getStringExtra("mediaId") + "/comments?client_id=" + PhotosActivity.CLIENT_ID;
-        client.get(url,null,new JsonHttpResponseHandler(){
+        client.get(url, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                comments.clear();
                 JSONArray commentsJSON = null;
                 try {
                     commentsJSON = response.getJSONArray("data");
-
-                    for (int i = commentsJSON.length()-2; i < commentsJSON.length(); i++) {
+                    for (int i = 0; i < commentsJSON.length(); i++) {
                         JSONObject commentJSON = commentsJSON.getJSONObject(i);     // each photo
                         InstagramComment comm = new InstagramComment(commentJSON);
                         comments.add(comm);

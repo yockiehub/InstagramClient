@@ -35,8 +35,13 @@ public class InstagramCommentAdapter extends ArrayAdapter<InstagramComment> {
 
         tvUser.setText(instaComment.user_name);
         tvComment.setText(instaComment.comment);
+
         //ivCommentImage.setImageResource(0);
-        Picasso.with(getContext()).load(instaComment.profile_pic).into(ivCommentImage);
+        Picasso.with(getContext()).
+                load(instaComment.profile_pic).
+                resize(40,40).
+                placeholder(R.drawable.load_pic).
+                into(ivCommentImage);
 
         return convertView;
     }

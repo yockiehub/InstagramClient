@@ -2,33 +2,30 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FF8EA9BE">
+    android:layout_height="match_parent">
 
     <com.makeramen.roundedimageview.RoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ivCommentImage"
         android:scaleType="fitCenter"
         app:riv_corner_radius="30dip"
-        app:riv_border_width="1dip"
-        app:riv_border_color="#e3f2fd"
-        app:riv_mutate_background="true"
-        app:riv_tile_mode="repeat"
         app:riv_oval="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/load_pic"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:padding="5dp"
-        android:maxHeight="50dp"
-        android:maxWidth="50dp" />
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test"
         android:id="@+id/tvCommentUser"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
         android:layout_toRightOf="@+id/ivCommentImage"/>
 
     <TextView
@@ -37,10 +34,7 @@
         android:text="Test"
         android:id="@+id/tvComment"
         android:layout_below="@+id/tvCommentUser"
+        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/ivCommentImage"/>
-
-
-
-
 
 </RelativeLayout>

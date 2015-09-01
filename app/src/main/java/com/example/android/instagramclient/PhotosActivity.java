@@ -31,6 +31,9 @@ public class PhotosActivity extends ActionBarActivity {
     private SwipeRefreshLayout swipeContainer;
     private ListView lvPhotos;
 
+    private InstagramCommentAdapter aComments;
+    private ArrayList<InstagramComment> comments;
+
     private AsyncHttpClient client = new AsyncHttpClient();
 
 
@@ -48,6 +51,7 @@ public class PhotosActivity extends ActionBarActivity {
         lvPhotos.setAdapter(aPhotos);
         //4. Fetch the popular photos
         fetchPopularPhotos();
+
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         //Setup refresh listener which triggers new data loading
@@ -104,20 +108,18 @@ public class PhotosActivity extends ActionBarActivity {
 
                 //callback
                 aPhotos.notifyDataSetChanged();
-
             }
-
-
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable e) {
-                //super.onFailure(statusCode, headers, responseString, throwable);
+                super.onFailure(statusCode, headers, responseString, e);
                 //When this statement was missing, I got a "explicit close method" problem, or sth like that
                 Log.d("DEBUG", "Fetch timeline error: " + e.toString());
             }
         });
 
     }
+
 
     private void setupListViewListener() {
         lvPhotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
